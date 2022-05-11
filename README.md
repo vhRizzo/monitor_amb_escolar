@@ -7,7 +7,7 @@ do ambiente de certas escolas municipais de Apucarana - PR.
 
 Sensores utilizados:
   - BME280 - Temperatura, umidade e pressão.
-  - CCS811 - CO2 e TVOC (descartado por funcinamento insatisfatório).
+  - CCS811 - CO2 e TVOC (descartado por funcionamento insatisfatório).
   - DSM501A - Material Particulado com sensibilidade de 1 μm e 2,5 μm.
   - NEO-6M - Latitude e longitude.
   - INMP441 - Intensidade de ruído.
