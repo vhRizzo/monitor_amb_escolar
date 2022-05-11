@@ -12,4 +12,4 @@ Sensores utilizados:
   - NEO-6M - Latitude e longitude.
   - INMP441 - Intensidade de ruído.
 
-Para o controle dos sensores, foi-se utilizado o microcontrolador ESP32, versões WiFi LoRa (V2) inicialmente, e ESP32S posteriormente.
+Para o controle dos sensores, foi-se utilizado o microcontrolador ESP32, versões WiFi LoRa (V2) inicialmente, e dev board ESP32S posteriormente.
