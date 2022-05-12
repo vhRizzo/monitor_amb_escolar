@@ -1,0 +1,48 @@
+<<: !include .param.yaml
+
+esphome:
+  name: $devicename
+  platform: ESP32
+  board: heltec_wifi_lora_32_V2
+  includes:
+    - dsm501a1_0.h
+    - dsm501a2_5.h
+
+logger:
+ota:
+
+wifi:
+  ssid: $wifissid
+  password: $wifipass
+  
+mqtt:
+  broker: $mqttbroker
+  port: $mqttport
+  username: $mqttuser
+  password: $mqttpass
+
+sensor:
+  - platform: custom
+    lambda: |-
+      auto dsm501a1_0 = new DSM501a1_0Sensor();
+      App.register_component(dsm501a1_0);
+      return {dsm501a1_0->lowratio_sensor, dsm501a1_0->conc_sensor};
+    sensors:
+    - name: "DSM501a PM 1.0 lowratio%"
+      accuracy_decimals: 1
+    - name: "DSM501a PM 1.0 conc"
+      accuracy_decimals: 2
+
+  - platform: custom
+    lambda: |-
+      auto dsm501a2_5 = new DSM501a2_5Sensor();
+      App.register_component(dsm501a2_5);
+      return {dsm501a2_5->lowratio_sensor, dsm501a2_5->conc_sensor};
+    sensors:
+    - name: "DSM501a PM 2.5 lowratio%"
+      accuracy_decimals: 1
+    - name: "DSM501a PM 2.5 conc"
+      accuracy_decimals: 2
+
+web_server:
+  port: 80

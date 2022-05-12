@@ -1,0 +1,97 @@
+<<: !include .param.yaml
+
+esphome:
+  name: $devicename
+  platform: ESP32
+  board: heltec_wifi_lora_32
+
+logger:
+ota:
+
+wifi:
+  ssid: $wifissid
+  password: $wifipass
+  
+mqtt:
+  broker: $mqttbroker
+  port: $mqttport
+  username: $mqttuser
+  password: $mqttpass
+
+i2c:
+  sda: 4
+  scl: 15
+  scan: True
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "BME280 Temperature"
+      id: temperature
+    pressure:
+      name: "BME280 Pressure"
+      id: pressure
+    humidity:
+      name: "BME280 Humidity"
+      id: humidity
+    address: 0x76
+    update_interval: 30s
+
+  - platform: ccs811
+    eco2:
+      name: "CCS811 eCO2 Value"
+      id: eco2
+    tvoc:
+      name: "CCS811 Total Volatile Organic Compound"
+      id: tvoc
+    address: 0x5A
+    update_interval: 30s
+
+  - platform: duty_cycle
+    pin: 17
+    name: "dsm501a-1um-particles"
+    id: one_um
+    update_interval: 30s
+    unit_of_measurement: pcs/238ml
+    filters:
+      - lambda: return 1.1*pow(x, 3) - 3.8*pow(x, 2) + 520*x + 0.62;
+  
+  - platform: duty_cycle
+    pin: 36
+    name: "dsm501a-25um-particles"
+    id: twofive_um
+    update_interval: 30s
+    unit_of_measurement: pcs/238ml
+    filters:
+      - lambda: return 1.1*pow(x, 3) - 3.8*pow(x, 2) + 520*x + 0.62;
+
+font:
+  file: "fonts/Times New Roman/times new roman.ttf"
+  id: font_tnr
+  size: 10
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    reset_pin: 16
+    address: 0x3C
+    lambda: |-
+      it.print(0, 0, id(font_tnr), "Monitor Ambiental");
+      if (id(temperature).has_state()) {
+        it.printf(0, 10, id(font_tnr), "Temperatura: %.2f °C", id(temperature).state);
+      }
+      if (id(pressure).has_state()) {
+        it.printf(0, 20, id(font_tnr), "Pressao: %.2f hPa", id(pressure).state);
+      }
+      if (id(humidity).has_state()) {
+        it.printf(0, 30, id(font_tnr), "Umidade: %.2f %", id(humidity).state);
+      }
+      if (id(eco2).has_state()) {
+        it.printf(0, 40, id(font_tnr), "CO2: %.2f ppm", id(eco2).state);
+      }
+      if (id(tvoc).has_state()) {
+        it.printf(0, 50, id(font_tnr), "Comp. volateis: %.2f ppb", id(tvoc).state);
+      }
+
+web_server:
+  port: 80

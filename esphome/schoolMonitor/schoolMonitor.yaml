@@ -1,0 +1,67 @@
+<<: !include .param.yaml
+
+esphome:
+  name: $devicename
+  platform: ESP32
+  board: heltec_wifi_lora_32
+
+logger:
+ota:
+
+wifi:
+  ssid: $wifissid
+  password: $wifipass
+  
+mqtt:
+  broker: $mqttbroker
+  port: $mqttport
+  username: $mqttuser
+  password: $mqttpass
+  
+uart:
+  #tx_pin: 13
+  rx_pin: 12
+  baud_rate: 9600
+
+gps:
+  latitude:
+    name: "Latitude"
+  longitude:
+    name: "Longitude"
+  altitude:
+    name: "Altitude"
+
+i2c:
+  sda: 4
+  scl: 15
+  scan: True
+
+sensor:
+  - platform: bme280
+    temperature:
+      name: "bme280-temperature"
+      id: temperature
+    pressure:
+      name: "bme280-pressure"
+      id: pressure
+    humidity:
+      name: "bme280-humidity"
+      id: humidity
+    address: 0x76
+    update_interval: 600s
+
+  - platform: ccs811
+    eco2:
+      name: "ccs811-co2"
+      id: co2
+    tvoc:
+      name: "ccs811-tvoc"
+      id: tvoc
+    address: 0x5A
+    temperature: temperature
+    humidity: humidity
+    baseline: 0x93B0
+    update_interval: 600s
+    
+web_server:
+  port: 80
