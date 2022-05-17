@@ -16,14 +16,14 @@
 
 /* MQTT */
 #define BROKER_URL      "$mqttbroker"
-#define BME_TEMP_TOPIC  "castelo_branco/_bme280/temp"
-#define BME_UMID_TOPIC  "castelo_branco/_bme280/umid"
-#define BME_PRES_TOPIC  "castelo_branco/_bme280/pres"
-#define DSM_PM10_TOPIC  "castelo_branco/dsm501a/pm10"
-#define DSM_PM25_TOPIC  "castelo_branco/dsm501a/pm25"
-#define _INMP_DB_TOPIC  "castelo_branco/inmp441/_dB_"
-#define _NEO_LAT_TOPIC  "castelo_branco/_neo6m_/_lat"
-#define _NEO_LNG_TOPIC  "castelo_branco/_neo6m_/_lng"
+#define BME_TEMP_TOPIC  "exemplo/_bme280/temp"
+#define BME_UMID_TOPIC  "exemplo/_bme280/umid"
+#define BME_PRES_TOPIC  "exemplo/_bme280/pres"
+#define DSM_PM10_TOPIC  "exemplo/dsm501a/pm10"
+#define DSM_PM25_TOPIC  "exemplo/dsm501a/pm25"
+#define _INMP_DB_TOPIC  "exemplo/inmp441/_dB_"
+#define _NEO_LAT_TOPIC  "exemplo/_neo6m_/_lat"
+#define _NEO_LNG_TOPIC  "exemplo/_neo6m_/_lng"
 
 /* OTA */
 #define OTA_FIRM_URL    "$otaurl"
