@@ -86,8 +86,9 @@ ota_begin:
     } else {
         ota_finish_err = esp_https_ota_finish(https_ota_handle);
         if ((err == ESP_OK) && (ota_finish_err == ESP_OK)) {
+            esp_mqtt_client_publish(client, OTA_TRIG_TOPIC, "OTA Update Triggered!", 0, 0, 0);
             ESP_LOGI(__func__, "ESP_HTTPS_OTA upgrade successful. Rebooting ...");
-            vTaskDelay(1000 / portTICK_PERIOD_MS);
+            vTaskDelay(5000 / portTICK_PERIOD_MS);
             esp_restart();
         } else {
             if (ota_finish_err == ESP_ERR_OTA_VALIDATE_FAILED) {

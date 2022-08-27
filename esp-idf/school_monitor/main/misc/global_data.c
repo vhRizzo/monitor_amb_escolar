@@ -15,8 +15,6 @@ bme280_t bme_receive;
 neo6m_t neo_receive;
 #endif
 
-esp_mqtt_client_handle_t client;
-
 void rcv_data_task ( void *pvParameters )
 {
     mqtt_app_start();
@@ -109,30 +107,12 @@ void send_data_timer (void *arg)
     esp_mqtt_client_publish(client, DSM_PM25_TOPIC, tmp, 0, 0, 0);
     sprintf(tmp, "%.2f", dados.ruido);
     esp_mqtt_client_publish(client, _INMP_DB_TOPIC, tmp, 0, 0, 0);
-    sprintf(tmp, "%.6f", dados.coord[0]);
-    esp_mqtt_client_publish(client, _NEO_LAT_TOPIC, tmp, 0, 0, 0);
-    sprintf(tmp, "%.6f", dados.coord[1]);
-    esp_mqtt_client_publish(client, _NEO_LNG_TOPIC, tmp, 0, 0, 0);
-}
-
-void mqtt_app_start(void)
-{
-    esp_log_level_set("*", ESP_LOG_INFO);
-    esp_log_level_set("MQTT_CLIENT", ESP_LOG_VERBOSE);
-    esp_log_level_set("MQTT_EXAMPLE", ESP_LOG_VERBOSE);
-    esp_log_level_set("TRANSPORT_BASE", ESP_LOG_VERBOSE);
-    esp_log_level_set("esp-tls", ESP_LOG_VERBOSE);
-    esp_log_level_set("TRANSPORT", ESP_LOG_VERBOSE);
-    esp_log_level_set("OUTBOX", ESP_LOG_VERBOSE);
-
-    esp_mqtt_client_config_t mqtt_cfg = {
-        .uri = BROKER_URL,
-        .task_prio = configMAX_PRIORITIES - 3,
-        .task_stack = 4096,
-    };
-
-    client = esp_mqtt_client_init(&mqtt_cfg);
-    /* The last argument may be used to pass data to the event handler, in this example mqtt_event_handler */
-    esp_mqtt_client_register_event(client, (esp_mqtt_event_id_t)ESP_EVENT_ANY_ID, mqtt_event_handler, NULL);
-    esp_mqtt_client_start(client);
+    if (abs(dados.coord[0]) <= 90 && dados.coord[0] != 0) {
+        sprintf(tmp, "%.6f", dados.coord[0]);
+        esp_mqtt_client_publish(client, _NEO_LAT_TOPIC, tmp, 0, 0, 0);
+    }
+    if (abs(dados.coord[1]) <= 180 && dados.coord[1] != 0) {
+        sprintf(tmp, "%.6f", dados.coord[1]);
+        esp_mqtt_client_publish(client, _NEO_LNG_TOPIC, tmp, 0, 0, 0);
+    }
 }

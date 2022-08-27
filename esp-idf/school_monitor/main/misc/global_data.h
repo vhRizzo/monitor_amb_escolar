@@ -10,23 +10,25 @@
 #define NEO6M_SENSOR
 
 /* WiFi */
-#define WIFI_SSID       "$wifissid"
-#define WIFI_PASS       "$wifipass"
+#define WIFI_SSID       "<SSID DO WIFI>"
+#define WIFI_PASS       "<SENHA DO WIFI>"
 #define MAXIMUM_RETRY   10
 
 /* MQTT */
-#define BROKER_URL      "$mqttbroker"
-#define BME_TEMP_TOPIC  "exemplo/_bme280/temp"
-#define BME_UMID_TOPIC  "exemplo/_bme280/umid"
-#define BME_PRES_TOPIC  "exemplo/_bme280/pres"
-#define DSM_PM10_TOPIC  "exemplo/dsm501a/pm10"
-#define DSM_PM25_TOPIC  "exemplo/dsm501a/pm25"
-#define _INMP_DB_TOPIC  "exemplo/inmp441/_dB_"
-#define _NEO_LAT_TOPIC  "exemplo/_neo6m_/_lat"
-#define _NEO_LNG_TOPIC  "exemplo/_neo6m_/_lng"
+#define BROKER_URL      "mqtt://user1:gabriel@iot.coenc.ap.utfpr.edu.br"
+#define BME_TEMP_TOPIC  "<NOME_DA_ESCOLA>/_bme280/temp"
+#define BME_UMID_TOPIC  "<NOME_DA_ESCOLA>/_bme280/umid"
+#define BME_PRES_TOPIC  "<NOME_DA_ESCOLA>/_bme280/pres"
+#define DSM_PM10_TOPIC  "<NOME_DA_ESCOLA>/dsm501a/pm10"
+#define DSM_PM25_TOPIC  "<NOME_DA_ESCOLA>/dsm501a/pm25"
+#define _INMP_DB_TOPIC  "<NOME_DA_ESCOLA>/inmp441/_dB_"
+#define _NEO_LAT_TOPIC  "<NOME_DA_ESCOLA>/_neo6m_/_lat"
+#define _NEO_LNG_TOPIC  "<NOME_DA_ESCOLA>/_neo6m_/_lng"
+#define OTA_TRIG_TOPIC  "<NOME_DA_ESCOLA>/otatrig/_ota"
+#define MQTT_TRG_TOPIC  "<NOME_DA_ESCOLA>/mqtttrg/mqtt"
 
 /* OTA */
-#define OTA_FIRM_URL    "$otaurl"
+#define OTA_FIRM_URL    "<URL DO OTA>"
 #define TEMPO_OTA_CHECK 300
 
 #include <math.h>
@@ -100,5 +102,7 @@ typedef struct __attribute__((__packed__)) //esse atributo informa ao compilador
     double ruido;
     float coord[2];          //8 bytes
 } dados_t;
+
+extern esp_mqtt_client_handle_t client;
 
 #endif /* GLOBAL_DATA_H */

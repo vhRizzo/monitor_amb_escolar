@@ -41,8 +41,8 @@ void app_main(void)
     #ifdef INMP441_SENSOR
     inmp_queue = xQueueCreate(1, sizeof(inmp441_t));
     vTaskDelay(500/portTICK_PERIOD_MS); // delay para sincronizar com a task de dados.
-    xTaskCreatePinnedToCore(mic_i2s_reader_task, "INMP441_Reader_Task", 2 * 1024, NULL, configMAX_PRIORITIES - 4, NULL, 0);
-    xTaskCreatePinnedToCore(mic_i2s_filter_task, "INMP441_Filter_Task", 2 * 1024, NULL, configMAX_PRIORITIES - 5, NULL, 0);
+    xTaskCreatePinnedToCore(mic_i2s_reader_task, "INMP441_Reader_Task", 4 * 1024, NULL, configMAX_PRIORITIES - 4, NULL, 0);
+    xTaskCreatePinnedToCore(mic_i2s_filter_task, "INMP441_Filter_Task", 4 * 1024, NULL, configMAX_PRIORITIES - 5, NULL, 0);
     #endif
 
     #ifdef BME280_SENSOR
@@ -57,6 +57,6 @@ void app_main(void)
 
     #ifdef NEO6M_SENSOR
     neo_queue = xQueueCreate(1, sizeof(neo6m_t));
-    xTaskCreatePinnedToCore(neo6m_task, "NEO-6M_Task", 4 * 1024, NULL, configMAX_PRIORITIES - 8, NULL, 0);
+    xTaskCreatePinnedToCore(neo6m_task, "NEO-6M_Task", 4 * 1024, NULL, configMAX_PRIORITIES - 8, NULL, 1);
     #endif
 }

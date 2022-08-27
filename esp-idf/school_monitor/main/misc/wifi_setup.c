@@ -13,8 +13,8 @@ void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, voi
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
         if (s_retry_num < MAXIMUM_RETRY) {
             ESP_LOGI(__func__, "retry to connect to the AP");
-            if ( esp_wifi_connect() != ESP_OK )
-                vTaskDelay(30000/portTICK_PERIOD_MS);
+            vTaskDelay(30000/portTICK_PERIOD_MS);
+            esp_wifi_connect();
             s_retry_num++;
         } else {
             esp_restart();
