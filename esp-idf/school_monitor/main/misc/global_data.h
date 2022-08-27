@@ -15,7 +15,7 @@
 #define MAXIMUM_RETRY   10
 
 /* MQTT */
-#define BROKER_URL      "mqtt://user1:gabriel@iot.coenc.ap.utfpr.edu.br"
+#define BROKER_URL      "<URL DO BROKER MQTT>"
 #define BME_TEMP_TOPIC  "<NOME_DA_ESCOLA>/_bme280/temp"
 #define BME_UMID_TOPIC  "<NOME_DA_ESCOLA>/_bme280/umid"
 #define BME_PRES_TOPIC  "<NOME_DA_ESCOLA>/_bme280/pres"
