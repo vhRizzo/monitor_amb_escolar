@@ -1,12 +1,13 @@
-#ifndef OTA_SETUP_H
-#define OTA_SETUP_H
-
 /* Advanced HTTPS OTA example
    This example code is in the Public Domain (or CC0 licensed, at your option.)
    Unless required by applicable law or agreed to in writing, this
    software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
    CONDITIONS OF ANY KIND, either express or implied.
 */
+
+#ifndef OTA_SETUP_H
+#define OTA_SETUP_H
+
 #include "global_data.h"
 #include <string.h>
 #include "freertos/FreeRTOS.h"
