@@ -1,5 +1,5 @@
 /*
- * Environmental monitoring using various sensors and freeRTOS tasks.
+ * Environmental monitoring using varied sensors and freeRTOS tasks.
  * 
  * (c)2022 Victor Moura
  *
